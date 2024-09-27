@@ -6,7 +6,7 @@ from datadriventest.ReadingExcel import ReadingFile
 
 
 @pytest.mark.usefixtures("beforeClass", "beforeMethod")
-class Actions(unittest.TestCase):
+class Table(unittest.TestCase):
 
     @pytest.fixture(autouse=True)
     def classObjects(self):
