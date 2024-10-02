@@ -1,4 +1,6 @@
 from traceback import print_stack
+
+import allure
 # from selenium import webdriver
 # from allure_commons.types import AttachmentType
 from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
