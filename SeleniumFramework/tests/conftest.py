@@ -7,10 +7,12 @@ import time
 # When parameter scope = "class"
 # multiple test cases in class will get executed and will only call driver function once.
 @pytest.yield_fixture(scope='class')
-def beforeClass(request):
+#def beforeClass(request):
+def beforeClass(request, browser):
     print('Before Class')
     driver1 = WebDriverClass()
-    driver = driver1.getWebDriver("chrome")
+    driver = driver1.getWebDriver(browser)
+    # driver = driver1.getWebDriver("chrome")
     bp = BaseClass(driver)
     bp.launchWebPage("http://www.dummypoint.com/seleniumtemplate.html", "Selenium Template")
     # bp.launchWebPage("http://www.dummypoint.com/Form.html", "Selenium Template")
@@ -27,6 +29,17 @@ def beforeClass(request):
     driver.quit()
     print('After Class')
 
+
+# example command run test with option select browser pytest -s -v .\test_ContactForm.py --browser firefox (chrome,...)
+def pytest_addoption(parser):  # This will get the value from CLI /hooks
+    parser.addoption("--browser")
+
+@pytest.fixture(scope="session")
+# This will return the Browser value to setup method,
+# example command run test with option select browser pytest -s -v .\test_ContactForm.py --browser firefox (chrome,...)
+def browser(request):
+
+    return request.config.getoption("--browser")
 
 @pytest.yield_fixture()
 def beforeMethod():
